@@ -2,7 +2,7 @@ module syncClock(
   input clk,
   output reg cp
 );
-    parameter delay = 5_000;
+    localparam delay = 5_000;
     integer counter = 0;
     initial begin
       cp <= 0;

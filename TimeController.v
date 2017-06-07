@@ -17,14 +17,14 @@ module TimeController(
     input [2:0] state;
     input [2:0] setData;
     input [25:0] data;
-    output [8:0] msg;
-    output [5:0] showLeft;
-    output [5:0] showMiddle;
-    output [5:0] showRight;
-    output [3:0] initTime;
-    output [3:0] finishTime;
-    output hadFinish;
-    output [2:0] running;
+    output reg [8:0] msg;
+    output reg [5:0] showLeft;
+    output reg [5:0] showMiddle;
+    output reg [5:0] showRight;
+    output reg [3:0] initTime;
+    output reg [3:0] finishTime;
+    output reg hadFinish;
+    output reg [2:0] running;
     reg w_inWater;
     reg w_W;
     reg r_outWater;
@@ -36,11 +36,11 @@ module TimeController(
 
     reg count = 0;
 
-    parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
-    parameter errorST = 4, pauseST = 5, finishST = 6;
+    localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
+    localparam errorST = 4, pauseST = 5, finishST = 6;
 
-    parameter set_WRD_ST = 0, set_W_ST = 1, set_WR_ST = 2;
-    parameter set_R_ST = 3, set_RD_ST = 4, set_D_ST = 5, set_USE_ST = 6;
+    localparam set_WRD_ST = 0, set_W_ST = 1, set_WR_ST = 2;
+    localparam set_R_ST = 3, set_RD_ST = 4, set_D_ST = 5, set_USE_ST = 6;
 
     initial begin
       
@@ -72,13 +72,13 @@ module TimeController(
            set_USE_ST: msg <= 9'b000000111; 
          endcase
          w_inWater <= data[25:23];
-         w_W <= [22:19];
-         r_outWater <= [18:16];
-         r_spinWater <= [15:13];
-         r_inWater <= [12:10];
-         r_R <= [9:6];
-         d_outwater <= [5:3];
-         d_spinWater <= [2:0];
+         w_W <= data[22:19];
+         r_outWater <= data[18:16];
+         r_spinWater <= data[15:13];
+         r_inWater <= data[12:10];
+         r_R <= data[9:6];
+         d_outwater <= data[5:3];
+         d_spinWater <= data[2:0];
          count <= 0;
        end
        runST: begin
@@ -132,7 +132,6 @@ module TimeController(
            end
          end
        end
-       default: 
      endcase 
     end
 endmodule // TimeController

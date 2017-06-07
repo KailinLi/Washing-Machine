@@ -14,10 +14,10 @@ module ViewController(
     output wire [5:0] showLeft;
     output wire [5:0] showMiddle;
     output wire [5:0] showRight;
-    output wire [8:0] LEDMsg;
+    output wire [9:0] LEDMsg;
 
-    parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
-    parameter errorST = 4, pauseST = 5, finishST = 6;
+    localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
+    localparam errorST = 4, pauseST = 5, finishST = 6;
 
     assign showLeft = msg[25:23]+msg[22:19]+msg[18:16]+msg[15:13]+msg[12:10]+msg[9:6]+msg[5:3]+msg[2:0];
     assign showMiddle = (msg[25:23] != 0)? msg[25:23] :

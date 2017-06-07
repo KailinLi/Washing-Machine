@@ -12,10 +12,10 @@ module STController(
     input [2:0] initTime;
     input [2:0] finishTime;
 
-    output reg [2:0]state;
+    output reg [2:0] state = shutDownST;
 
-    parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
-    parameter errorST = 4, pauseST = 5, finishST = 6;
+    localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
+    localparam errorST = 4, pauseST = 5, finishST = 6;
 
     reg [2:0] nextState;
     always @(posedge cp) begin
@@ -46,7 +46,7 @@ module STController(
         end
         setST: begin
           if (runBtn) begin
-            nextState = runBtn;
+            nextState = runST;
           end
           else begin
             nextState = setST;
@@ -64,6 +64,17 @@ module STController(
           end
           else begin
             nextState = runST;
+          end
+        end
+        pauseST: begin
+          if (runBtn && !openBtn) begin
+            nextState = runST;
+          end
+          else if (openBtn) begin
+            nextState = pauseST;
+          end
+          else begin
+            nextState = pauseST;
           end
         end
         finishST: begin

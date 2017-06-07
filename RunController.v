@@ -2,19 +2,19 @@
 module RunController(
   clk,
   state,
-  msg,
+  data,
   hadFinish,
   initTime,
   finishTime,
   msg
 );
-    input cp;
+    input clk;
     input [2:0] state;
     input [25:0] data;
-    output hadFinish;
-    output [2:0] initTime;
-    output [2:0] finishTime;
-    output [25:0] msg;
+    output reg hadFinish;
+    output reg [2:0] initTime;
+    output reg [2:0] finishTime;
+    output reg [25:0] msg;
     parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     parameter errorST = 4, pauseST = 5, finishST = 6;
 
@@ -55,6 +55,12 @@ module RunController(
        msg <= data;
        hadFinish <= 0;
      end
+     else if (state == pauseST) begin
+       finishTime <= 5;
+       initTime <= 5;
+       msg <= msg;
+       hadFinish <= 0;
+     end
      else begin
        finishTime <= 5;
        initTime <= 5;
@@ -68,16 +74,16 @@ module second(
   input clk,
   output reg cp
 );
-    parameter delay = 5_0000;
+    parameter delay = 5;
     integer count = 0;
     initial begin
-      cp = 0;
+      cp = 1;
     end
     always @(posedge clk) begin
-      count <= count + 1;
+      count = count + 1;
       if (count == delay) begin
-        cp <= ~cp;
-        count <= 0;
+        cp = ~cp;
+        count = 0;
       end
     end
 endmodule // second

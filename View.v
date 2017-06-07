@@ -39,14 +39,14 @@ module View(
     output setLED;
     output powerLED;
 
-    wire left;
-    wire middle;
-    wire right;
+    wire [5:0] left;
+    wire [5:0] middle;
+    wire [5:0] right;
 
-    parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
-    parameter errorST = 4, pauseST = 5, finishST = 6;
+    localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
+    localparam errorST = 4, pauseST = 5, finishST = 6;
 
-    parameter showEmpty = 55, showFull = 56, showPause = 57;
+    localparam showEmpty = 55, showFull = 56, showPause = 57;
     
     assign left = (state == shutDownST) ? showEmpty :
                   (state == beginST) ? showFull :
