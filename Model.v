@@ -4,12 +4,14 @@ module Model(
   click,
   waterBtn,
   state,
+  setData,
   data
 );
     input cp;
     input click;
     input waterBtn;
     input [2:0] state;
+    output reg [2:0] setData;
     output reg [25:0] data;
 
     parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
@@ -18,27 +20,28 @@ module Model(
     parameter set_WRD_ST = 0, set_W_ST = 1, set_WR_ST = 2;
     parameter set_R_ST = 3, set_RD_ST = 4, set_D_ST = 5, set_USE_ST = 6;
 
-    reg [2:0] setting;
     reg [2:0] inWaterTime;
 
-    getTime t (setting, inWaterTime, data);
+    getTime t (setData, inWaterTime, data);
 
     always @(posedge cp) begin
       if (state == setST && click && !waterBtn) begin
-        setting <= (setting == 6) ? set_WRD_ST : setting + 1;
+        setData <= (setData == 6) ? set_WRD_ST : setData + 1;
+        inWaterTime <= 6;
       end
       else (state == setST && click && waterBtn) begin
+        setData <= set_USE_ST;
         inWaterTime <= (inWaterTime == 6) ? 6 : inWaterTime + 1;
       end
     end
 endmodule // Model
 
 module getTime(
-  setting,
+  setData,
   inWaterTime,
   data
 );
-    input setting;
+    input setData;
     input [2:0] inWaterTime;
     output reg [25:0] data;
 
@@ -46,7 +49,7 @@ module getTime(
     parameter set_R_ST = 3, set_RD_ST = 4, set_D_ST = 5, set_USE_ST = 6;
 
     always @(*) begin
-      case (setting)
+      case (setData)
         set_WRD_ST: begin
           data <= 26'b011_1010_100_101_011_1000_100_101;
         end
