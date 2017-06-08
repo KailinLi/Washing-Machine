@@ -5,14 +5,14 @@ module Model(
   waterBtn,
   state,
   setData,
-  data
+  outData
 );
     input cp;
     input click;
     input waterBtn;
     input [2:0] state;
     output reg [2:0] setData;
-    output [25:0] data;
+    output [25:0] outData;
 
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     localparam errorST = 4, pauseST = 5, finishST = 6;
@@ -22,10 +22,13 @@ module Model(
 
     reg [2:0] inWaterTime;
     wire [2:0] setting;
+    wire [25:0] data;
 
     assign setting = setData;
 
     getTime t (setting, inWaterTime, data);
+
+    select s (state, setting, data, outData);
 
     always @(posedge cp) begin
       if (state == setST && click && !waterBtn) begin
@@ -85,3 +88,29 @@ module getTime(
       endcase
     end
 endmodule // getTime
+
+module select(
+  state,
+  setData,
+  data,
+  res
+);
+  input [2:0] state;
+  input [2:0] setData;
+  input [25:0] data;
+  output wire [25:0] res;
+
+  localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
+  localparam errorST = 4, pauseST = 5, finishST = 6;
+
+  localparam set_WRD_ST = 0, set_W_ST = 1, set_WR_ST = 2;
+  localparam set_R_ST = 3, set_RD_ST = 4, set_D_ST = 5, set_USE_ST = 6;
+  assign res = (state == setST) ? data :
+               (setData == set_WRD_ST) ? 26'b000_0000_000_000_000_0001_001_001 :
+               (setData == set_W_ST) ?   26'b000_0000_000_000_000_0001_000_000 : 
+               (setData == set_WR_ST) ?  26'b000_0000_000_000_000_0001_001_000 :
+               (setData == set_R_ST) ?   26'b000_0000_000_000_000_0000_001_000 :
+               (setData == set_RD_ST) ?  26'b000_0000_000_000_000_0000_001_001 :
+               (setData == set_D_ST) ?   26'b000_0000_000_000_000_0000_000_001 :
+               (setData == set_USE_ST) ? 26'b000_0000_000_000_000_0001_001_001 : data;
+endmodule // select

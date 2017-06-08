@@ -20,7 +20,7 @@ module View(
 );
     input cp;
     input [2:0] state;
-    input [8:0] data;
+    input [9:0] data;
     input [5:0] inLeft;
     input [5:0] inMiddle;
     input [5:0] inRight;
