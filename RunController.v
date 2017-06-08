@@ -22,7 +22,10 @@ module RunController(
 
     always @(posedge cp) begin
      if (state == runST) begin
-       if (msg[25:23] != 0)
+       if (initTime == 3) begin
+         msg <= data;
+       end
+       else if (msg[25:23] != 0)
         msg[25:23] <= msg[25:23] - 1;
        else if (msg[22:19] != 0) 
         msg[22:19] <= msg[22:19] - 1;
@@ -59,6 +62,12 @@ module RunController(
        finishTime <= 5;
        initTime <= 5;
        msg <= msg;
+       hadFinish <= 0;
+     end
+     else if (state == setST) begin
+       finishTime <= 5;
+       initTime <= 3;
+       msg <= data;
        hadFinish <= 0;
      end
      else begin
