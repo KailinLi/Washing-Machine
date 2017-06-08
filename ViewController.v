@@ -4,6 +4,7 @@ module ViewController(
   state,
   source,
   msg,
+  sourceData,
   showLeft,
   showMiddle,
   showRight,
@@ -13,6 +14,7 @@ module ViewController(
     input [2:0] state;
     input [25:0] source;
     input [25:0] msg;
+    input [25:0] sourceData;
     output wire [5:0] showLeft;
     output wire [5:0] showMiddle;
     output wire [5:0] showRight;
@@ -21,17 +23,17 @@ module ViewController(
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     localparam errorST = 4, pauseST = 5, finishST = 6;
 
-    assign showLeft = (state == setST) ? source[25:23]+source[22:19]+source[18:16]+source[15:13]+source[12:10]+source[9:6]+source[5:3]+source[2:0] :
+    assign showLeft = (state == setST) ? sourceData[25:23]+sourceData[22:19]+sourceData[18:16]+sourceData[15:13]+sourceData[12:10]+sourceData[9:6]+sourceData[5:3]+sourceData[2:0] :
                                          msg[25:23]+msg[22:19]+msg[18:16]+msg[15:13]+msg[12:10]+msg[9:6]+msg[5:3]+msg[2:0];
     assign showMiddle = (state == setST) ? (
-                        (source[25:23] != 0)? source[25:23] :
-                        (source[22:19] != 0)? source[22:19] :
-                        (source[18:16] != 0)? source[18:16] :
-                        (source[15:13] != 0)? source[15:13] :
-                        (source[12:10] != 0)? source[12:10] :
-                        (source[9:6] != 0)? source[9:6] :
-                        (source[5:3] != 0)? source[5:3] :
-                        (source[2:0] != 0)? source[2:0] : 0 ) :
+                        (sourceData[25:23] != 0)? sourceData[25:23] :
+                        (sourceData[22:19] != 0)? sourceData[22:19] :
+                        (sourceData[18:16] != 0)? sourceData[18:16] :
+                        (sourceData[15:13] != 0)? sourceData[15:13] :
+                        (sourceData[12:10] != 0)? sourceData[12:10] :
+                        (sourceData[9:6] != 0)? sourceData[9:6] :
+                        (sourceData[5:3] != 0)? sourceData[5:3] :
+                        (sourceData[2:0] != 0)? sourceData[2:0] : 0 ) :
 
                         (msg[25:23] != 0)? msg[25:23] :
                         (msg[22:19] != 0)? msg[22:19] :
@@ -41,7 +43,7 @@ module ViewController(
                         (msg[9:6] != 0)? msg[9:6] :
                         (msg[5:3] != 0)? msg[5:3] :
                         (msg[2:0] != 0)? msg[2:0] : 0;
-    assign showRight = (state == setST) ? source[25:23] : msg[25:23];
+    assign showRight = (state == setST) ? sourceData[25:23] : msg[25:23];
 
     assign LEDMsg[0] = (state == setST) ? ((source[2:0] == 0) ? 0 : 1) : (msg[2:0] == 0) ? 0 : 1;
     assign LEDMsg[1] = (state == setST) ? ((source[5:3] == 0) ? 0 : 1) : (msg[5:3] == 0) ? 0 : 1;

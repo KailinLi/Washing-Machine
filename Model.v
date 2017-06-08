@@ -5,7 +5,8 @@ module Model(
   waterBtn,
   state,
   setData,
-  outData
+  outData, 
+  sourceData
 );
     input cp;
     input click;
@@ -13,6 +14,7 @@ module Model(
     input [2:0] state;
     output reg [2:0] setData;
     output [25:0] outData;
+    output [25:0] sourceData;
 
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     localparam errorST = 4, pauseST = 5, finishST = 6;
@@ -27,6 +29,8 @@ module Model(
     assign setting = setData;
 
     getTime t (setting, inWaterTime, data);
+
+    assign sourceData = data;
 
     select s (state, setting, data, outData);
 
