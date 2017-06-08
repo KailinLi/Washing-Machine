@@ -36,10 +36,12 @@ module _disp_decimal(
 );
     assign yE1 = (uVal == 55) ? 4'hf :
                  (uVal == 56) ? 8 : 
-                 (uVal == 57) ? 10 : uVal / 10;
+                 (uVal == 57) ? 10 : 
+                 (uVal == 58) ? 12 : uVal / 10;
     assign yE2 = (uVal == 55) ? 4'hf :
                  (uVal == 56) ? 8 :
-                 (uVal == 57) ? 11 : uVal % 10;
+                 (uVal == 57) ? 11 : 
+                 (uVal == 58) ? 11 : uVal % 10;
 endmodule
 
 module _disp_pattern(
@@ -60,6 +62,7 @@ module _disp_pattern(
             'b1001:  ySEG_ <= 'b10010000;
             'b1010:  ySEG_ <= 'b10001100;
             'b1011:  ySEG_ <= 'b10001000;
+            'b1100:  ySEG_ <= 'b10000110;
             default: ySEG_ <= 'b11111111;
         endcase
 endmodule

@@ -4,6 +4,7 @@ module STController(
   resetBtn, runBtn, openBtn,
   hadFinish, 
   initTime, finishTime,
+  shinning,
   state
 );
     input cp;
@@ -11,6 +12,7 @@ module STController(
     input hadFinish;
     input [2:0] initTime;
     input [2:0] finishTime;
+    input [2:0] shinning;
 
     output reg [2:0] state = shutDownST;
 
@@ -60,11 +62,22 @@ module STController(
           if (!runBtn) begin
             nextState = pauseST;
           end
+          else if (openBtn && (shinning == 3 || shinning == 7)) begin
+            nextState = errorST;
+          end
           else if (openBtn) begin
             nextState = pauseST;
           end
           else if (hadFinish) begin
             nextState = finishST;
+          end
+          else begin
+            nextState = runST;
+          end
+        end
+        errorST: begin
+          if (openBtn) begin
+            nextState = errorST;
           end
           else begin
             nextState = runST;

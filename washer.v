@@ -57,7 +57,7 @@ module Washer(
     syncInput b2 (cp, in_runBtn, runBtn);
     syncInput b6 (cp, in_WaterBtn, WaterBtn);
     syncInput b7 (cp, in_openBtn, openBtn);
-    syncClick sc (cp, in_click, click);
+    syncInput sc (cp, in_click, click);
 
     shine s (click, beeLED);
 
@@ -78,7 +78,7 @@ module Washer(
     wire [2:0] waterTime;
 
 
-    STController stc (cp, resetBtn, runBtn, openBtn, hadFinish, initTime, finishTime, state);
+    STController stc (cp, resetBtn, runBtn, openBtn, hadFinish, initTime, finishTime, shinning, state);
     Model m (cp, click, WaterBtn, state, setData, data, sourceData, waterTime);
     RunController rc (cp, state, data, hadFinish, initTime, finishTime, msg, second);
     ViewController vc (cp, state, data, msg, sourceData, waterTime, showLeft, showMiddle, showRight, LEDMsg, shinning);

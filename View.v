@@ -50,7 +50,7 @@ module View(
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     localparam errorST = 4, pauseST = 5, finishST = 6;
 
-    localparam showEmpty = 55, showFull = 56, showPause = 57;
+    localparam showEmpty = 55, showFull = 56, showPause = 57, showError = 58;
 
     always @(posedge second) begin
       if (state == runST) begin
@@ -70,7 +70,8 @@ module View(
     assign middle = (state == shutDownST) ? showEmpty :
                     (state == beginST) ? showFull : 
                     (state == finishST) ? showFull :
-                    (state == pauseST) ? showPause : inMiddle;
+                    (state == pauseST) ? showPause : 
+                    (state == errorST) ? showError : inMiddle;
     assign w_inWaterLED = (state == shutDownST) ? 0 :
                           (state == beginST) ? 1 :
                           (state == finishST) ? 1 : 

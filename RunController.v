@@ -60,7 +60,7 @@ module RunController(
        msg <= data;
        hadFinish <= 0;
      end
-     else if (state == pauseST) begin
+     else if (state == pauseST || state == errorST) begin
        finishTime <= 5;
        initTime <= 5;
        msg <= msg;
