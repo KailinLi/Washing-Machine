@@ -13,8 +13,8 @@ module ShowView(
     wire [3:0] xMem[7:0];
     _disp_counter   vC8(clk, xPos);
     _disp_decimal   vDecTot(uTot, xMem[7], xMem[6]);
-    _disp_decimal   vDecCur(uCur, xMem[5], xMem[4]);
-    assign xMem[3] = 4'hf;
+    _disp_decimal   vDecCur(uCur, xMem[4], xMem[3]);
+    assign xMem[5] = 4'hf;
     assign xMem[2] = 4'hf;
     _disp_decimal   vDecWat(uWat, xMem[1], xMem[0]);
     _disp_pattern   vPat(xMem[xPos], ySEG_);
@@ -34,8 +34,10 @@ module _disp_decimal(
     output [3:0] yE1,
     output [3:0] yE2
 );
-    assign yE1 = uVal / 10;
-    assign yE2 = uVal % 10;
+    assign yE1 = (uVal == 55) ? 4'hf :
+                 (uVal == 56) ? 8 : uVal / 10;
+    assign yE2 = (uVal == 55) ? 4'hf :
+                 (uVal == 56) ? 8 : uVal % 10;
 endmodule
 
 module _disp_pattern(

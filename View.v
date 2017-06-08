@@ -84,7 +84,9 @@ module View(
                             (state == finishST) ? 1 : data[0];
 
     assign powerLED = data[8];
-    assign setLED = data[9];
+    assign setLED = (state == beginST) ? 1 : 
+                    (state == finishST) ? 1 : 
+                    (state == shutDownST) ? 0 : data[9];
 
     ShowView l (cp, left, middle, right, showLeft, showRight);
 
