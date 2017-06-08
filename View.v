@@ -1,6 +1,7 @@
 `timescale 1ns/1ps
 module View(
   cp,
+  click,
   state,
   data,
   shinning,
@@ -15,12 +16,13 @@ module View(
   r_RLED,
   d_outwaterLED,
   d_spinWaterLED,
-
+  beeLED,
   setLED,
   powerLED,
   colorLED
 );
     input cp;
+    input click;
     input [2:0] state;
     input [9:0] data;
     input [2:0] shinning;
@@ -39,6 +41,7 @@ module View(
     output r_RLED;
     output d_outwaterLED;
     output d_spinWaterLED;
+    output beeLED;
     output setLED;
     output powerLED;
     output reg [2:0] colorLED = 0;
@@ -104,6 +107,9 @@ module View(
                             (state == beginST) ? 1 :
                             (state == finishST) ? 1 : 
                             (state == runST) ? ((shinning == 7) ? second : data[0]) : data[0];
+
+    assign beeLED = (state == finishST) ? second : 
+                    (click) ? 1 : 0;
 
     assign powerLED = data[8];
     assign setLED = (state == beginST) ? 1 : 

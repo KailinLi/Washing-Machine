@@ -59,7 +59,6 @@ module Washer(
     syncInput b7 (cp, in_openBtn, openBtn);
     syncInput sc (cp, in_click, click);
 
-    shine s (click, beeLED);
 
     wire [2:0] state;
     wire hadFinish;
@@ -82,18 +81,9 @@ module Washer(
     Model m (cp, click, WaterBtn, state, setData, data, sourceData, waterTime);
     RunController rc (cp, state, data, hadFinish, initTime, finishTime, msg, second);
     ViewController vc (cp, state, data, msg, sourceData, waterTime, showLeft, showMiddle, showRight, LEDMsg, shinning);
-    View v (cp, state, LEDMsg, shinning, showLeft, showMiddle, showRight, second, out_showL, out_showR, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, setLED, powerLED, colorLED);
+    View v (cp, click, state, LEDMsg, shinning, showLeft, showMiddle, showRight, second, out_showL, out_showR, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, beeLED, setLED, powerLED, colorLED);
 
 endmodule // Washer
-
-module shine(
-  click,
-  shine
-);
-  input click;
-  output shine;
-  assign shine = click;
-endmodule // shine
 
 module syncClick(
   input clk,
