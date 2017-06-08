@@ -57,7 +57,7 @@ module Washer(
     syncInput b2 (cp, in_runBtn, runBtn);
     syncInput b6 (cp, in_WaterBtn, WaterBtn);
     syncInput b7 (cp, in_openBtn, openBtn);
-    syncInput b8 (clk, in_click, click);
+    syncInput b8 (cp, in_click, click);
 
     shine s (click, beeLED);
 
