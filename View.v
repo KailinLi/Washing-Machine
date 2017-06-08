@@ -58,29 +58,29 @@ module View(
                     (state == beginST) ? showFull : 
                     (state == finishST) ? showFull :
                     (state == pauseST) ? showPause : inMiddle;
-    assign w_inWaterLED = (state == shutDownST) ? 1 :
-                          (state == beginST) ? 0 :
+    assign w_inWaterLED = (state == shutDownST) ? 0 :
+                          (state == beginST) ? 1 :
                           (state == finishST) ? 1 : data[7];
-    assign w_WLED = (state == shutDownST) ? 1 :
-                    (state == beginST) ? 0 :
+    assign w_WLED = (state == shutDownST) ? 0 :
+                    (state == beginST) ? 1 :
                     (state == finishST) ? 1 : data[6];
-    assign r_outWaterLED = (state == shutDownST) ? 1 :
-                           (state == beginST) ? 0 :
+    assign r_outWaterLED = (state == shutDownST) ? 0 :
+                           (state == beginST) ? 1 :
                            (state == finishST) ? 1 : data[5];
-    assign r_spinWaterLED = (state == shutDownST) ? 1 :
-                            (state == beginST) ? 0 :
+    assign r_spinWaterLED = (state == shutDownST) ? 0 :
+                            (state == beginST) ? 1 :
                             (state == finishST) ? 1 : data[4];
-    assign r_inWaterLED = (state == shutDownST) ? 1 :
-                          (state == beginST) ? 0 :
+    assign r_inWaterLED = (state == shutDownST) ? 0 :
+                          (state == beginST) ? 1 :
                           (state == finishST) ? 1 : data[3];
-    assign r_RLED = (state == shutDownST) ? 1 :
-                    (state == beginST) ? 0 :
+    assign r_RLED = (state == shutDownST) ? 0 :
+                    (state == beginST) ? 1 :
                     (state == finishST) ? 1 : data[2];
-    assign d_outwaterLED = (state == shutDownST) ? 1 :
-                           (state == beginST) ? 0 :
+    assign d_outwaterLED = (state == shutDownST) ? 0 :
+                           (state == beginST) ? 1 :
                            (state == finishST) ? 1 : data[1];
-    assign d_spinWaterLED = (state == shutDownST) ? 1 :
-                            (state == beginST) ? 0 :
+    assign d_spinWaterLED = (state == shutDownST) ? 0 :
+                            (state == beginST) ? 1 :
                             (state == finishST) ? 1 : data[0];
 
     assign powerLED = data[8];
