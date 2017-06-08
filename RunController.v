@@ -85,7 +85,7 @@ module second(
   input clk,
   output reg cp
 );
-    parameter delay = 5;
+    parameter delay = 5000;
     integer count = 0;
     initial begin
       cp = 1;
