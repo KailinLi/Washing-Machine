@@ -13,6 +13,7 @@ module Washer(
   powerLED,
 
   out_showL, out_showR,
+  beeLED,
 
   in_resetBtn,
   in_runBtn,
@@ -33,6 +34,8 @@ module Washer(
     output powerLED;
 
     output wire [7:0] out_showL, out_showR;
+    output beeLED;
+
 
     input in_resetBtn;
     input in_runBtn;
@@ -55,6 +58,7 @@ module Washer(
     syncInput b7 (cp, in_openBtn, openBtn);
     syncInput b8 (cp, in_click, click);
 
+    shine s (click, beeLED);
 
     wire [2:0] state;
     wire hadFinish;
@@ -76,3 +80,12 @@ module Washer(
     View v (cp, state, LEDMsg, showLeft, showMiddle, showRight, out_showL, out_showR, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, setLED, powerLED);
 
 endmodule // Washer
+
+module shine(
+  click,
+  shine
+);
+  input click;
+  output shine;
+  assign shine = click;
+endmodule // shine
