@@ -44,7 +44,7 @@ module Model(
       end
       else if (state == setST && click && waterBtn) begin
         setData <= set_USE_ST;
-        inWaterTime <= (inWaterTime == 7) ? 7 : inWaterTime + 1;
+        inWaterTime <= inWaterTime + 1;//(inWaterTime == 7) ? 7 : inWaterTime + 1;
       end
       else if (state == beginST) begin
         setData <= 0;

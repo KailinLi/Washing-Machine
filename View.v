@@ -53,7 +53,12 @@ module View(
     localparam showEmpty = 55, showFull = 56, showPause = 57;
 
     always @(posedge second) begin
-      colorLED <= colorLED + 1;
+      if (state == runST) begin
+        colorLED <= colorLED + 1;
+      end
+      else begin
+        colorLED <= 0;
+      end
     end
     
     assign left = (state == shutDownST) ? showEmpty :
