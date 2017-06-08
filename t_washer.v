@@ -13,6 +13,7 @@ module test(
   wire setLED;
   wire powerLED;
   wire beeLED;
+  wire [2:0] colorLED;
 
   wire [7:0] out_showL, out_showR;
 
@@ -26,7 +27,7 @@ module test(
     clk = 1;
     forever #0.05 clk = ~clk;
   end
-  Washer t (clk, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, setLED, powerLED, out_showL, out_showR, beeLED, in_resetBtn, in_runBtn, in_WaterBtn, in_openBtn, in_click);
+  Washer t (clk, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, setLED, powerLED, out_showL, out_showR, beeLED, colorLED, in_resetBtn, in_runBtn, in_WaterBtn, in_openBtn, in_click);
   initial begin
       $dumpfile("test.vcd");
       $dumpvars;

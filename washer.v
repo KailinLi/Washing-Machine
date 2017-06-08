@@ -14,6 +14,7 @@ module Washer(
 
   out_showL, out_showR,
   beeLED,
+  colorLED,
 
   in_resetBtn,
   in_runBtn,
@@ -35,7 +36,7 @@ module Washer(
 
     output wire [7:0] out_showL, out_showR;
     output beeLED;
-
+    output [2:0] colorLED;
 
     input in_resetBtn;
     input in_runBtn;
@@ -81,7 +82,7 @@ module Washer(
     Model m (cp, click, WaterBtn, state, setData, data, sourceData, waterTime);
     RunController rc (cp, state, data, hadFinish, initTime, finishTime, msg, second);
     ViewController vc (cp, state, data, msg, sourceData, waterTime, showLeft, showMiddle, showRight, LEDMsg, shinning);
-    View v (cp, state, LEDMsg, shinning, showLeft, showMiddle, showRight, second, out_showL, out_showR, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, setLED, powerLED);
+    View v (cp, state, LEDMsg, shinning, showLeft, showMiddle, showRight, second, out_showL, out_showR, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, setLED, powerLED, colorLED);
 
 endmodule // Washer
 

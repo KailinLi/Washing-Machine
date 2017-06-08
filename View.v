@@ -17,7 +17,8 @@ module View(
   d_spinWaterLED,
 
   setLED,
-  powerLED
+  powerLED,
+  colorLED
 );
     input cp;
     input [2:0] state;
@@ -40,6 +41,7 @@ module View(
     output d_spinWaterLED;
     output setLED;
     output powerLED;
+    output reg [2:0] colorLED = 0;
 
     wire [5:0] left;
     wire [5:0] middle;
@@ -49,6 +51,10 @@ module View(
     localparam errorST = 4, pauseST = 5, finishST = 6;
 
     localparam showEmpty = 55, showFull = 56, showPause = 57;
+
+    always @(posedge second) begin
+      colorLED <= colorLED + 1;
+    end
     
     assign left = (state == shutDownST) ? showEmpty :
                   (state == beginST) ? showFull :
