@@ -105,7 +105,8 @@ module select(
 
   localparam set_WRD_ST = 0, set_W_ST = 1, set_WR_ST = 2;
   localparam set_R_ST = 3, set_RD_ST = 4, set_D_ST = 5, set_USE_ST = 6;
-  assign res = (state == setST) ? data :
+  assign res = (state != setST) ? data :
+               (state == beginST) ? 0 :
                (setData == set_WRD_ST) ? 26'b000_0000_000_000_000_0001_001_001 :
                (setData == set_W_ST) ?   26'b000_0000_000_000_000_0001_000_000 : 
                (setData == set_WR_ST) ?  26'b000_0000_000_000_000_0001_001_000 :

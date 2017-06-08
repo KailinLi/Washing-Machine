@@ -11,10 +11,10 @@ module RunController(
     input clk;
     input [2:0] state;
     input [25:0] data;
-    output reg hadFinish;
-    output reg [2:0] initTime;
-    output reg [2:0] finishTime;
-    output reg [25:0] msg;
+    output reg hadFinish = 0;
+    output reg [2:0] initTime = 5;
+    output reg [2:0] finishTime = 5;
+    output reg [25:0] msg = 0;
     parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     parameter errorST = 4, pauseST = 5, finishST = 6;
 
