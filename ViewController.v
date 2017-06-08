@@ -5,6 +5,7 @@ module ViewController(
   source,
   msg,
   sourceData,
+  waterTime,
   showLeft,
   showMiddle,
   showRight,
@@ -16,6 +17,7 @@ module ViewController(
     input [25:0] source;
     input [25:0] msg;
     input [25:0] sourceData;
+    input [2:0] waterTime;
     output wire [5:0] showLeft;
     output wire [5:0] showMiddle;
     output wire [5:0] showRight;
@@ -53,7 +55,7 @@ module ViewController(
                         (msg[9:6] != 0)? msg[9:6] :
                         (msg[5:3] != 0)? msg[5:3] :
                         (msg[2:0] != 0)? msg[2:0] : 0;
-    assign showRight = (state == setST) ? sourceData[25:23] : msg[25:23];
+    assign showRight = {3'b000, waterTime}; //(state == setST) ? sourceData[25:23] : msg[25:23];
 
     assign LEDMsg[0] = (state == setST) ? ((source[2:0] == 0) ? 0 : 1) : (msg[2:0] == 0) ? 0 : 1;
     assign LEDMsg[1] = (state == setST) ? ((source[5:3] == 0) ? 0 : 1) : (msg[5:3] == 0) ? 0 : 1;

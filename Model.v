@@ -6,7 +6,8 @@ module Model(
   state,
   setData,
   outData, 
-  sourceData
+  sourceData,
+  waterTime
 );
     input cp;
     input click;
@@ -15,6 +16,7 @@ module Model(
     output reg [2:0] setData;
     output [25:0] outData;
     output [25:0] sourceData;
+    output [2:0] waterTime;
 
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     localparam errorST = 4, pauseST = 5, finishST = 6;
@@ -27,6 +29,7 @@ module Model(
     wire [25:0] data;
 
     assign setting = setData;
+    assign waterTime = inWaterTime;
 
     getTime t (setting, inWaterTime, data);
 
