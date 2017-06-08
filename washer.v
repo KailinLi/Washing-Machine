@@ -72,13 +72,15 @@ module Washer(
     wire [5:0] showRight;
     wire [9:0] LEDMsg;
     wire [25:0] sourceData;
+    wire second;
+    wire [2:0] shinning;
 
 
     STController stc (cp, resetBtn, runBtn, openBtn, hadFinish, initTime, finishTime, state);
     Model m (cp, click, WaterBtn, state, setData, data, sourceData);
-    RunController rc (cp, state, data, hadFinish, initTime, finishTime, msg);
-    ViewController vc (cp, state, data, msg, sourceData, showLeft, showMiddle, showRight, LEDMsg);
-    View v (cp, state, LEDMsg, showLeft, showMiddle, showRight, out_showL, out_showR, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, setLED, powerLED);
+    RunController rc (cp, state, data, hadFinish, initTime, finishTime, msg, second);
+    ViewController vc (cp, state, data, msg, sourceData, showLeft, showMiddle, showRight, LEDMsg, shinning);
+    View v (cp, state, LEDMsg, shinning, showLeft, showMiddle, showRight, second, out_showL, out_showR, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, setLED, powerLED);
 
 endmodule // Washer
 

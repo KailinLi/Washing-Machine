@@ -6,7 +6,8 @@ module RunController(
   hadFinish,
   initTime,
   finishTime,
-  msg
+  msg,
+  getSecond
 );
     input clk;
     input [2:0] state;
@@ -15,12 +16,13 @@ module RunController(
     output reg [2:0] initTime = 5;
     output reg [2:0] finishTime = 5;
     output reg [25:0] msg = 0;
+    output getSecond;
     parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     parameter errorST = 4, pauseST = 5, finishST = 6;
 
-    second s (clk, cp);
+    second s (clk, getSecond);
 
-    always @(posedge cp) begin
+    always @(posedge getSecond) begin
      if (state == runST) begin
        if (initTime == 3) begin
          msg <= data;

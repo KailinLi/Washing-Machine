@@ -8,7 +8,8 @@ module ViewController(
   showLeft,
   showMiddle,
   showRight,
-  LEDMsg
+  LEDMsg, 
+  shinning
 );
     input cp;
     input [2:0] state;
@@ -19,9 +20,18 @@ module ViewController(
     output wire [5:0] showMiddle;
     output wire [5:0] showRight;
     output wire [9:0] LEDMsg;
+    output wire [2:0] shinning;
 
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     localparam errorST = 4, pauseST = 5, finishST = 6;
+
+    assign shinning =   (msg[25:23] != 0)? 0 :
+                        (msg[22:19] != 0)? 1 :
+                        (msg[18:16] != 0)? 2 :
+                        (msg[15:13] != 0)? 3 :
+                        (msg[12:10] != 0)? 4 :
+                        (msg[9:6] != 0)? 5 :
+                        (msg[5:3] != 0)? 6 : 7;
 
     assign showLeft = (state == setST) ? sourceData[25:23]+sourceData[22:19]+sourceData[18:16]+sourceData[15:13]+sourceData[12:10]+sourceData[9:6]+sourceData[5:3]+sourceData[2:0] :
                                          msg[25:23]+msg[22:19]+msg[18:16]+msg[15:13]+msg[12:10]+msg[9:6]+msg[5:3]+msg[2:0];
