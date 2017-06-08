@@ -17,19 +17,23 @@ module STController(
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
     localparam errorST = 4, pauseST = 5, finishST = 6;
 
+    reg sleep;
+
     reg [2:0] nextState;
     always @(posedge cp) begin
       if (resetBtn == 0) begin
         state <= shutDownST;
+        sleep <= 1;
       end
       else begin
         state <= nextState;
+        sleep <= 0;
       end
     end
     always @(*) begin
       case (state)
         shutDownST: begin
-          if (resetBtn) begin
+          if (sleep && resetBtn) begin
             nextState = beginST;
           end
           else begin
