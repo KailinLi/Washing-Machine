@@ -59,6 +59,12 @@ module View(
       if (state == runST) begin
         colorLED <= colorLED + 1;
       end
+      else if (state == errorST) begin
+        colorLED <= 3'b100;
+      end
+      else if (state == pauseST) begin
+        colorLED <= colorLED;
+      end
       else begin
         colorLED <= 0;
       end
