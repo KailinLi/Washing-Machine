@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 module STController(
   cp, 
-  resetBtn, runBtn, openBtn,
+  resetBtn, runBtn, openBtn, click,
   hadFinish, 
   initTime, finishTime, sleepTime,
   shinning,
@@ -9,6 +9,7 @@ module STController(
 );
     input cp;
     input resetBtn, runBtn, openBtn;
+    input click;
     input hadFinish;
     input [2:0] initTime;
     input [2:0] finishTime;
@@ -91,6 +92,9 @@ module STController(
         pauseST: begin
           if (runBtn && !openBtn) begin
             nextState = runST;
+          end
+          else if (click) begin
+            nextState = setST;
           end
           else if (openBtn) begin
             nextState = pauseST;

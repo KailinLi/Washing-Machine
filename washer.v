@@ -77,7 +77,7 @@ module Washer(
     wire [2:0] waterTime;
     wire [1:0] sleepTime;
 
-    STController stc (cp, resetBtn, runBtn, openBtn, hadFinish, initTime, finishTime, sleepTime, shinning, state);
+    STController stc (cp, resetBtn, runBtn, openBtn, click, hadFinish, initTime, finishTime, sleepTime, shinning, state);
     Model m (cp, click, WaterBtn, state, setData, data, sourceData, waterTime);
     RunController rc (cp, state, data, hadFinish, initTime, finishTime, sleepTime, msg, second);
     ViewController vc (cp, state, data, msg, sourceData, waterTime, showLeft, showMiddle, showRight, LEDMsg, shinning);
