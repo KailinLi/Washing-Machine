@@ -6,6 +6,7 @@ module View(
   data,
   shinning,
   inLeft, inMiddle, inRight,
+  initTime,
   second,
   showLeft, showRight,
   w_inWaterLED,
@@ -29,6 +30,7 @@ module View(
     input [5:0] inLeft;
     input [5:0] inMiddle;
     input [5:0] inRight;
+    input [2:0] initTime;
     input second;
     output [7:0] showLeft;
     output [7:0] showRight;
@@ -71,13 +73,16 @@ module View(
     end
     
     assign left = (state == shutDownST || state == sleepST) ? showEmpty :
-                  (state == beginST) ? showHE :
+                  (state == beginST && initTime < 4) ? showHE :
+                  (state == beginST) ? showFull :
                   (state == finishST) ? showFull : inLeft;
     assign right = (state == shutDownST || state == sleepST) ? showEmpty :
-                   (state == beginST) ? showO :
+                   (state == beginST && initTime < 4) ? showO :
+                   (state == beginST) ? showFull :
                    (state == finishST) ? showFull : inRight;
     assign middle = (state == shutDownST || state == sleepST) ? showEmpty :
-                    (state == beginST) ? showLL : 
+                    (state == beginST && initTime < 4) ? showLL : 
+                    (state == beginST) ? showFull :
                     (state == finishST) ? showFull :
                     (state == pauseST) ? showPause : 
                     (state == errorST) ? showError : inMiddle;
