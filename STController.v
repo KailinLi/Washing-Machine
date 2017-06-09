@@ -95,7 +95,10 @@ module STController(
           end
         end
         finishST: begin
-          if (finishTime > 0) begin
+          if (runBtn == 0) begin
+            nextState = setST;
+          end
+          else if (finishTime > 0) begin
             nextState = finishST;
           end
           else begin
