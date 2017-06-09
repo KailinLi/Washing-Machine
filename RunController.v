@@ -6,6 +6,7 @@ module RunController(
   hadFinish,
   initTime,
   finishTime,
+  sleepTime,
   msg,
   getSecond
 );
@@ -15,10 +16,11 @@ module RunController(
     output reg hadFinish = 0;
     output reg [2:0] initTime = 5;
     output reg [2:0] finishTime = 5;
+    output reg [1:0] sleepTime = 3;
     output reg [25:0] msg = 0;
     output getSecond;
     parameter shutDownST = 0, beginST = 1, setST = 2, runST = 3;
-    parameter errorST = 4, pauseST = 5, finishST = 6;
+    parameter errorST = 4, pauseST = 5, finishST = 6, sleepST = 7;
 
     second s (clk, getSecond);
 
@@ -47,36 +49,49 @@ module RunController(
         hadFinish <= 1;
        finishTime <= 5;
        initTime <= 5;
+       sleepTime <= 3;
      end
      else if (state == beginST) begin
        initTime <= initTime - 1;
        finishTime <= 5;
        msg <= data;
        hadFinish <= 0;
+       sleepTime <= 3;
      end
      else if (state == finishST) begin
        finishTime <= finishTime - 1;
        initTime <= 5;
        msg <= data;
        hadFinish <= 0;
+       sleepTime <= 3;
      end
      else if (state == pauseST || state == errorST) begin
        finishTime <= 5;
        initTime <= 5;
        msg <= msg;
        hadFinish <= 0;
+       sleepTime <= 3;
      end
      else if (state == setST) begin
        finishTime <= 5;
        initTime <= 3;
        msg <= data;
        hadFinish <= 0;
+       sleepTime <= 3;
      end
+     else if (state == sleepST) begin
+       sleepTime <= sleepTime - 1;
+       finishTime <= 5;
+       initTime <= 5;
+       msg <= msg;
+       hadFinish <= 0;
+     end 
      else begin
        finishTime <= 5;
        initTime <= 5;
        msg <= data;
        hadFinish <= 0;
+       sleepTime <= 3;
      end
     end
 endmodule // RunController

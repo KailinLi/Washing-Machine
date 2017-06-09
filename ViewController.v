@@ -25,7 +25,7 @@ module ViewController(
     output wire [2:0] shinning;
 
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
-    localparam errorST = 4, pauseST = 5, finishST = 6;
+    localparam errorST = 4, pauseST = 5, finishST = 6, sleepST = 7;
 
     assign shinning =   (msg[25:23] != 0)? 0 :
                         (msg[22:19] != 0)? 1 :
@@ -65,7 +65,7 @@ module ViewController(
     assign LEDMsg[5] = (state == setST) ? ((source[18:16] == 0) ? 0 : 1) : (msg[18:16] == 0) ? 0 : 1;
     assign LEDMsg[6] = (state == setST) ? ((source[22:19] == 0) ? 0 : 1) : (msg[22:19] == 0) ? 0 : 1;
     assign LEDMsg[7] = (state == setST) ? ((source[25:23] == 0) ? 0 : 1) : (msg[25:23] == 0) ? 0 : 1;
-    assign LEDMsg[8] = (state == shutDownST) ? 0 : 1;
+    assign LEDMsg[8] = (state == shutDownST || state == sleepST) ? 0 : 1;
     assign LEDMsg[9] = (state == setST) ? 1 : 0;
 
 

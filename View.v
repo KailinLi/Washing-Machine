@@ -51,7 +51,7 @@ module View(
     wire [5:0] right;
 
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
-    localparam errorST = 4, pauseST = 5, finishST = 6;
+    localparam errorST = 4, pauseST = 5, finishST = 6, sleepST = 7;
 
     localparam showEmpty = 55, showFull = 56, showPause = 57, showError = 58, showHE = 59, showLL = 60, showO = 61;
 
@@ -70,46 +70,46 @@ module View(
       end
     end
     
-    assign left = (state == shutDownST) ? showEmpty :
+    assign left = (state == shutDownST || state == sleepST) ? showEmpty :
                   (state == beginST) ? showHE :
                   (state == finishST) ? showFull : inLeft;
-    assign right = (state == shutDownST) ? showEmpty :
+    assign right = (state == shutDownST || state == sleepST) ? showEmpty :
                    (state == beginST) ? showO :
                    (state == finishST) ? showFull : inRight;
-    assign middle = (state == shutDownST) ? showEmpty :
+    assign middle = (state == shutDownST || state == sleepST) ? showEmpty :
                     (state == beginST) ? showLL : 
                     (state == finishST) ? showFull :
                     (state == pauseST) ? showPause : 
                     (state == errorST) ? showError : inMiddle;
-    assign w_inWaterLED = (state == shutDownST) ? 0 :
+    assign w_inWaterLED = (state == shutDownST || state == sleepST) ? 0 :
                           (state == beginST) ? 1 :
                           (state == finishST) ? 1 : 
                           (state == runST) ? ((shinning == 0) ? second : data[7]) : data[7];
-    assign w_WLED = (state == shutDownST) ? 0 :
+    assign w_WLED = (state == shutDownST || state == sleepST) ? 0 :
                     (state == beginST) ? 1 :
                     (state == finishST) ? 1 : 
                     (state == runST) ? ((shinning == 1) ? second : data[6]): data[6];
-    assign r_outWaterLED = (state == shutDownST) ? 0 :
+    assign r_outWaterLED = (state == shutDownST || state == sleepST) ? 0 :
                            (state == beginST) ? 1 :
                            (state == finishST) ? 1 : 
                            (state == runST) ? ((shinning == 2) ? second : data[5]) : data[5];
-    assign r_spinWaterLED = (state == shutDownST) ? 0 :
+    assign r_spinWaterLED = (state == shutDownST || state == sleepST) ? 0 :
                             (state == beginST) ? 1 :
                             (state == finishST) ? 1 : 
                             (state == runST) ? ((shinning == 3) ? second : data[4]) : data[4];
-    assign r_inWaterLED = (state == shutDownST) ? 0 :
+    assign r_inWaterLED = (state == shutDownST || state == sleepST) ? 0 :
                           (state == beginST) ? 1 :
                           (state == finishST) ? 1 : 
                           (state == runST) ? ((shinning == 4) ? second : data[3]) : data[3];
-    assign r_RLED = (state == shutDownST) ? 0 :
+    assign r_RLED = (state == shutDownST || state == sleepST) ? 0 :
                     (state == beginST) ? 1 :
                     (state == finishST) ? 1 : 
                     (state == runST) ? ((shinning == 5) ? second : data[2]) : data[2];
-    assign d_outwaterLED = (state == shutDownST) ? 0 :
+    assign d_outwaterLED = (state == shutDownST || state == sleepST) ? 0 :
                            (state == beginST) ? 1 :
                            (state == finishST) ? 1 : 
                            (state == runST) ? ((shinning == 6) ? second : data[1]) : data[1];
-    assign d_spinWaterLED = (state == shutDownST) ? 0 :
+    assign d_spinWaterLED = (state == shutDownST || state == sleepST) ? 0 :
                             (state == beginST) ? 1 :
                             (state == finishST) ? 1 : 
                             (state == runST) ? ((shinning == 7) ? second : data[0]) : data[0];
@@ -120,7 +120,7 @@ module View(
     assign powerLED = data[8];
     assign setLED = (state == beginST) ? 1 : 
                     (state == finishST) ? 1 : 
-                    (state == shutDownST) ? 0 : data[9];
+                    (state == shutDownST || state == sleepST) ? 0 : data[9];
 
     ShowView l (cp, left, middle, right, showLeft, showRight);
 

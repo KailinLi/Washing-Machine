@@ -19,7 +19,7 @@ module Model(
     output [2:0] waterTime;
 
     localparam shutDownST = 0, beginST = 1, setST = 2, runST = 3;
-    localparam errorST = 4, pauseST = 5, finishST = 6;
+    localparam errorST = 4, pauseST = 5, finishST = 6, sleepST = 7;
 
     localparam set_WRD_ST = 0, set_W_ST = 1, set_WR_ST = 2;
     localparam set_R_ST = 3, set_RD_ST = 4, set_D_ST = 5, set_USE_ST = 6;

@@ -41,6 +41,10 @@ module test(
       #50 in_click = 1;
       #1.5 in_click = 0;
       #10 in_runBtn = 1;
+      #30 in_resetBtn = 0;
+      #10 in_resetBtn = 1;
+      #80 in_resetBtn = 0;
+      #80 in_resetBtn = 1;
       #2000 in_openBtn = 1;
       #30 in_openBtn = 0;
   end
