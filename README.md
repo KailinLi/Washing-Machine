@@ -42,7 +42,7 @@
 
 <center>
 
-<img src="http://oklhb00qa.bkt.clouddn.com/washer/IMG_1390-min.PNG" width="85%" align=center />
+<img src="http://oklhb00qa.bkt.clouddn.com/washer/IMG_1390-min.PNG" width="86%" align=center />
 
 </center>
 
