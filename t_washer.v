@@ -39,14 +39,22 @@ module test(
 
       #50 in_resetBtn = 1;
       #50 in_click = 1;
-      #1.5 in_click = 0;
+      #10 in_click = 0;
       #10 in_runBtn = 1;
-      #30 in_resetBtn = 0;
-      #10 in_resetBtn = 1;
-      #80 in_resetBtn = 0;
-      #80 in_resetBtn = 1;
-      #2000 in_openBtn = 1;
+      #10 in_resetBtn = 0;
+      #5 in_resetBtn = 1;
+      #10 in_runBtn = 0;
+      #3 in_runBtn = 1;
+      #35 in_runBtn = 0;
+      #5 in_click = 1;
+      #1 in_click = 0;
+      #10 in_runBtn = 1;
+      #10 in_openBtn = 1;
+      #10 in_openBtn = 0;
+      #200 in_openBtn = 1;
       #30 in_openBtn = 0;
+      #100 in_runBtn = 0;
+      #20 in_runBtn = 1;
   end
   initial #8800 $finish;
 endmodule // test

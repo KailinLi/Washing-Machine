@@ -51,14 +51,9 @@ module Washer(
     wire click;
 
     wire cp;
-    syncClock c (clk, cp);
 
-    syncInput b1 (cp, in_resetBtn, resetBtn);
-    syncInput b2 (cp, in_runBtn, runBtn);
-    syncInput b6 (cp, in_WaterBtn, WaterBtn);
-    syncInput b7 (cp, in_openBtn, openBtn);
-    syncInput sc (cp, in_click, click);
 
+    Pretreatment pr (clk, cp, in_resetBtn, resetBtn, in_runBtn, runBtn, in_WaterBtn, WaterBtn, in_openBtn, openBtn, in_click, click);
 
     wire [2:0] state;
     wire hadFinish;
@@ -84,22 +79,3 @@ module Washer(
     View v (cp, click, state, LEDMsg, shinning, showLeft, showMiddle, showRight, initTime, second, out_showL, out_showR, w_inWaterLED, w_WLED, r_outWaterLED, r_spinWaterLED, r_inWaterLED, r_RLED, d_outwaterLED, d_spinWaterLED, beeLED, setLED, powerLED, colorLED);
 
 endmodule // Washer
-
-module syncClick(
-  input clk,
-  input btn,
-  output reg syncBtn = 0
-);
-    reg b1;
-    reg b2;
-    always @(clk) begin
-      b1 <= btn;
-      b2 <= b1;
-      if (b1 && !b2) begin
-        syncBtn <= 1;
-      end
-      if (!b1 && b2) begin
-        syncBtn <= 0;
-      end
-    end
-endmodule // syncClick
